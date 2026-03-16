@@ -1,0 +1,23 @@
+@use 'vars' as v;
+
+%btn-shared {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 23px;
+    border: 1px solid #9C69E2;
+    min-width: 210px;
+    border-radius: 50px;
+    background: v.$main-background;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.33s ease;
+    border: 1px solid transparent;
+}
+
+%bg-decorated {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: auto;
+}

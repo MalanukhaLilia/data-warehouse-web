@@ -3,6 +3,7 @@
 @use 'mixins' as m;
 @use 'extends';
 @use 'fonts';
+@use 'keyframes';
 
 * {
     margin: 0;
@@ -66,16 +67,15 @@ ol {
 }
 
 .header {
-    position: fixed;
+    position: relative;
     padding: 20px 15px;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
     background-color: v.$main-background;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     margin: auto;
-
+    margin-bottom: 100px;
 
     &__flex-container {
         margin: auto;
@@ -110,9 +110,31 @@ ol {
     }
 
     &__logo {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
         img {
             display: flex;
             align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        &:hover {
+            &::before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+                border: 3px solid transparent;
+                border-radius: 50%;
+                z-index: 1;
+                animation: orbitTravel 3s linear infinite;
+            }
         }
     }
 }
@@ -127,9 +149,10 @@ ol {
     @media screen and (max-width: 768px) {
         position: absolute;
         top: -100%;
-        right: auto;
-
+        left: 0;
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
         flex-direction: column;
         background: linear-gradient(45deg,
                 color-mix(in srgb, #9C69E2, white 60%),
@@ -137,13 +160,14 @@ ol {
         padding: 0 0;
         margin: 0;
         transition: all 0.5s ease-in-out;
-        width: 40%;
+        width: 100%;
         gap: 0;
+        z-index: 9;
     }
 
     &__item {
         @media screen and (max-width: 768px) {
-            padding: 10px 0;
+            padding: 0;
             border-bottom: 1px solid #fff;
             width: 100%;
             text-align: center;
@@ -160,6 +184,7 @@ ol {
         @include m.font_title(1rem, 1.33, 500);
         text-decoration: none;
         color: v.$main-font-color;
+        display: block;
 
         &:hover {
             color: v.$main-hover-color;
@@ -167,6 +192,8 @@ ol {
 
         @media screen and (max-width: 768px) {
             color: v.$main-background;
+            padding: 15px 0;
+            width: 100%;
 
             &:hover {
                 color: #FDE8F5;
@@ -182,7 +209,9 @@ ol {
 
     @media screen and (max-width: 768px) {
         &:checked~.menu {
-            opacity: 1;
+            opacity: 0.98;
+            visibility: visible;
+            pointer-events: auto;
             top: 100%;
         }
 
@@ -208,11 +237,10 @@ ol {
         @media screen and (max-width: 768px) {
             display: inline-block;
             position: absolute;
-            left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
+            left: auto;
             z-index: 10;
-
             position: relative;
             top: -3px;
             width: 34px;
@@ -246,7 +274,7 @@ ol {
     gap: 20px;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
 
-    &_white {
+    &--white {
         background-color: v.$main-background;
         color: v.$main-accent-color;
         border: 1px solid v.$main-accent-color;
@@ -261,7 +289,7 @@ ol {
         }
     }
 
-    &_purple {
+    &--purple {
         background-color: v.$main-accent-color;
         color: v.$main-background;
         margin-top: 50px;
@@ -275,18 +303,12 @@ ol {
         }
     }
 
-    &_pink {
+    &--pink {
         background-color: #F063B8;
         color: v.$main-background;
 
         &:hover {
             background-color: #EB4BAB;
-        }
-    }
-
-    &:hover {
-        .arrow {
-            transform: translateX(8px);
         }
     }
 
@@ -375,6 +397,7 @@ ol {
         color: v.$main-title-color;
         width: 180%;
         position: relative;
+        margin: 0;
         margin-bottom: 50px;
 
         @media screen and (max-width: 992px) {
@@ -419,7 +442,7 @@ ol {
     }
 }
 
-.about_us {
+.about-us {
     background-color: #FDE8F5;
     border-radius: v.$main-border-radius;
     padding: 75px 70px;
@@ -489,6 +512,10 @@ ol {
             padding-top: 150px;
             justify-content: center;
         }
+
+        &:hover {
+            animation: pulse 0.5s ease-in-out;
+        }
     }
 
     &__img {
@@ -527,25 +554,25 @@ ol {
         padding: 30px 20px;
     }
 
-    &_green {
+    &--green {
         background-color: #F0FAF9;
         background-image: url('../assets/img/bg_image_card_1.svg');
         background-position: right 20px top 10px;
     }
 
-    &_violet {
+    &--violet {
         background-color: #F6F0FD;
         background-image: url('../assets/img/bg_image_card_2.svg');
         background-position: right 20px bottom 20px;
     }
 
-    &_pink {
+    &--pink {
         background-color: #FEF0F8;
         background-image: url('../assets/img/bg_image_card_3.svg');
         background-position: right 20px top 20px;
     }
 
-    &_blue {
+    &--blue {
         background-color: #EAF6FC;
         background-image:
             url('../assets/img/bg_image_card_4.1.svg'),
@@ -642,6 +669,21 @@ ol {
         display: flex;
         gap: 15px;
         align-items: flex-start;
+        position: relative;
+
+        &:hover {
+            animation: pulse 0.5s ease-in-out;
+
+            .review {
+                &__link {
+                    color: v.$main-hover-color;
+                }
+
+                &__img {
+                    border-color: v.$main-hover-color;
+                }
+            }
+        }
     }
 }
 
@@ -668,18 +710,32 @@ ol {
     }
 
     &__link {
+        display: inline-block;
         text-decoration: none;
         color: v.$main-accent-color;
         letter-spacing: 0.01em;
         font-size: 0.875rem;
+        transition: color 0.3s ease;
 
-        &:hover {
-            color: v.$main-hover-color;
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
         }
     }
 
     &__text {
         padding-top: 18px;
+    }
+
+    &__img {
+        border: 1px solid transparent;
+        border-radius: 50%;
+        transition: border-color 0.3s ease;
     }
 }
 
@@ -796,7 +852,7 @@ ol {
         letter-spacing: 0.01em;
         color: v.$main-title-color;
 
-        &_map {
+        &--map {
             font-weight: 500;
         }
 
@@ -860,52 +916,52 @@ ol {
         display: inline-flex;
         text-decoration: none;
 
-        .svg_bg {
+        .socials__svg-bg {
             fill: #d8d8de;
             stroke: #d8d8de;
             transition: all 0.3s ease;
         }
 
-        .svg_icon {
+        .socials__svg-icon {
             fill: v.$main-background;
             stroke: v.$main-background;
             transition: all 0.3s ease;
         }
 
         &:hover {
-            .svg_bg {
+            .socials__svg-bg {
                 fill: v.$main-background;
             }
         }
 
-        &__facebook:hover {
-            .svg_bg {
+        &--facebook:hover {
+            .socials__svg-bg {
                 stroke: #3b5998;
             }
 
-            .svg_icon {
+            .socials__svg-icon {
                 fill: #3b5998;
                 stroke: #3b5998;
             }
         }
 
-        &__twitter:hover {
-            .svg_bg {
+        &--twitter:hover {
+            .socials__svg-bg {
                 stroke: #00acee;
             }
 
-            .svg_icon {
+            .socials__svg-icon {
                 fill: #00acee;
                 stroke: none;
             }
         }
 
-        &__instagram:hover {
-            .svg_bg {
+        &--instagram:hover {
+            .socials__svg-bg {
                 stroke: #c13584;
             }
 
-            .svg_icon {
+            .socials__svg-icon {
                 fill: #c13584;
                 stroke: none;
             }

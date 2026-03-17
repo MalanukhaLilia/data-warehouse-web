@@ -1,4 +1,4 @@
-$main-font-size: 16px;
+$main-font-size: 1rem;
 $main-font-color: #4B5D68;
 $main-title-color: #212353;
 $main-hover-color: #8A40EE;
@@ -7,6 +7,7 @@ $main-accent-color: #9C69E2;
 $main-background: #ffffff;
 $main-font-family: 'Montserrat', sans-serif;
 $secondary-font-family: 'Work Sans', sans-serif;
+$fallback-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 $main-border-radius: 50px;
 $main-line-height: 1.6;
 
